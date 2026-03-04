@@ -1,0 +1,20 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Virtual environment — dependencies are installed fresh inside the image
+.venv/
+
+# Git
+.git/
+.gitignore
+
+# Editor / OS
+.vscode/
+*.DS_Store
+
+# uv cache
+.uv/

@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production        # build up to (and including) the production stage
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
