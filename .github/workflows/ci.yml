@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - development          # run on every push to development
+  pull_request:
+    branches:
+      - development          # PR into development must pass
+      - master               # PR from development → master must pass
+
+jobs:
+  test:
+    name: Run pytest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Run tests
+        run: uv run pytest tests/ -v --tb=short
