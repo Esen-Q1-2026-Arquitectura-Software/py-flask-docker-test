@@ -38,6 +38,14 @@ class TestSmoke:
         response = client.get("/")
         assert b"/multiply" in response.data
 
+    def test_power_page_loads(self, client):
+        response = client.get("/power")
+        assert response.status_code == 200
+
+    def test_landing_page_contains_power_link(self, client):
+        response = client.get("/")
+        assert b"/power" in response.data
+
 
 # ---------------------------------------------------------------------------
 # Addition operation tests
@@ -149,3 +157,54 @@ class TestResultPage:
     def test_result_page_has_back_button(self, client):
         response = client.get("/result?action=Addition&a=1&b=1&result=2")
         assert b"/" in response.data  # home link exists in the page
+
+    def test_result_shows_power_action(self, client):
+        response = client.get("/result?action=Power&a=5&result=25")
+        assert b"Power" in response.data
+
+
+# ---------------------------------------------------------------------------
+# Power operation tests
+# ---------------------------------------------------------------------------
+
+class TestPower:
+    def test_power_redirects_on_post(self, client):
+        response = client.post("/power", data={"a": "5"})
+        assert response.status_code == 302
+
+    def test_power_redirect_points_to_result(self, client):
+        response = client.post("/power", data={"a": "5"})
+        assert "/result" in response.headers["Location"]
+
+    def test_power_result_value(self, client):
+        response = client.post("/power", data={"a": "5"}, follow_redirects=True)
+        assert response.status_code == 200
+        assert b"25" in response.data
+
+    def test_power_result_shows_action(self, client):
+        response = client.post("/power", data={"a": "5"}, follow_redirects=True)
+        assert b"Power" in response.data
+
+    def test_power_result_shows_operand(self, client):
+        response = client.post("/power", data={"a": "5"}, follow_redirects=True)
+        assert b"5" in response.data
+
+    def test_power_with_zero(self, client):
+        response = client.post("/power", data={"a": "0"}, follow_redirects=True)
+        assert b"0" in response.data
+
+    def test_power_with_negative_number(self, client):
+        response = client.post("/power", data={"a": "-3"}, follow_redirects=True)
+        assert b"9" in response.data
+
+    def test_power_with_float(self, client):
+        response = client.post("/power", data={"a": "2.5"}, follow_redirects=True)
+        assert b"6.25" in response.data
+
+    def test_power_with_one(self, client):
+        response = client.post("/power", data={"a": "1"}, follow_redirects=True)
+        assert b"1" in response.data
+
+    def test_power_large_number(self, client):
+        response = client.post("/power", data={"a": "100"}, follow_redirects=True)
+        assert b"10000" in response.data

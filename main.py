@@ -28,6 +28,15 @@ def multiply():
     return render_template("multiply.html")
 
 
+@app.route("/power", methods=["GET", "POST"])
+def power():
+    if request.method == "POST":
+        a = float(request.form["a"])
+        result = a ** 2
+        return redirect(url_for("result", action="Power", a=a, result=result))
+    return render_template("power.html")
+
+
 @app.route("/result")
 def result():
     action = request.args.get("action")

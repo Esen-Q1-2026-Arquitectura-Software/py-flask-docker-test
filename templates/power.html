@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Number to the Power of 2{% endblock %}
+
+{% block content %}
+    <h1>Power of 2</h1>
+    <p class="subtitle">Enter a number to raise it to the power of 2.</p>
+    <form method="POST" action="{{ url_for('power') }}">
+        <div class="form-group">
+            <label for="a">Number</label>
+            <input type="number" id="a" name="a" step="any" placeholder="e.g. 5" required />
+        </div>
+        <button type="submit" class="btn btn-tertiary" style="width:100%;">Calculate</button>
+    </form>
+    <a href="{{ url_for('index') }}" class="btn btn-back" style="width:100%; margin-top:1rem; display:block;">Back to Home</a>
+{% endblock %}
