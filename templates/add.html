@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Add Two Numbers{% endblock %}
+
+{% block content %}
+    <h1>Add Two Numbers</h1>
+    <p class="subtitle">Enter the values you want to add together.</p>
+    <form method="POST" action="{{ url_for('add') }}">
+        <div class="form-group">
+            <div class="form-row">
+                <div>
+                    <label for="a">First Number</label>
+                    <input type="number" id="a" name="a" step="any" placeholder="e.g. 5" required />
+                </div>
+                <div>
+                    <label for="b">Second Number</label>
+                    <input type="number" id="b" name="b" step="any" placeholder="e.g. 3" required />
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Calculate</button>
+    </form>
+    <a href="{{ url_for('index') }}" class="btn btn-back" style="width:100%; margin-top:1rem; display:block;">Back to Home</a>
+{% endblock %}

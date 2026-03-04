@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Math App — Home{% endblock %}
+
+{% block content %}
+    <h1>Math App</h1>
+    <p class="subtitle">Choose an operation to get started.</p>
+    <div class="btn-group">
+        <a href="{{ url_for('add') }}" class="btn btn-primary">Add Two Numbers</a>
+        <a href="{{ url_for('multiply') }}" class="btn btn-secondary">Multiply Two Numbers</a>
+    </div>
+{% endblock %}
