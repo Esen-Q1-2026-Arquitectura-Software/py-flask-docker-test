@@ -4,14 +4,20 @@
 
 {% block content %}
     <h1>Result</h1>
-    <p class="result-detail">{{ action }} of <strong>{{ a }}</strong> and <strong>{{ b }}</strong></p>
-    <div class="result-value">{{ result }}</div>
-    <p class="result-detail">
-        {% if action == "Addition" %}
-            {{ a }} + {{ b }} = {{ result }}
-        {% else %}
-            {{ a }} &times; {{ b }} = {{ result }}
-        {% endif %}
-    </p>
+    {% if action == "Power" %}
+        <p class="result-detail">{{ action }} of <strong>{{ a }}</strong></p>
+        <div class="result-value">{{ result }}</div>
+        <p class="result-detail">{{ a }}² = {{ result }}</p>
+    {% else %}
+        <p class="result-detail">{{ action }} of <strong>{{ a }}</strong> and <strong>{{ b }}</strong></p>
+        <div class="result-value">{{ result }}</div>
+        <p class="result-detail">
+            {% if action == "Addition" %}
+                {{ a }} + {{ b }} = {{ result }}
+            {% else %}
+                {{ a }} &times; {{ b }} = {{ result }}
+            {% endif %}
+        </p>
+    {% endif %}
     <a href="{{ url_for('index') }}" class="btn btn-back" style="width:100%; display:block;">Back to Home</a>
 {% endblock %}
