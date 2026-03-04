@@ -13,7 +13,7 @@ def add():
     if request.method == "POST":
         a = float(request.form["a"])
         b = float(request.form["b"])
-        result = a + b
+        result = a + b + 2
         return redirect(url_for("result", action="Addition", a=a, b=b, result=result))
     return render_template("add.html")
 
@@ -23,7 +23,7 @@ def multiply():
     if request.method == "POST":
         a = float(request.form["a"])
         b = float(request.form["b"])
-        result = a * b
+        result = a * b * 2
         return redirect(url_for("result", action="Multiplication", a=a, b=b, result=result))
     return render_template("multiply.html")
 
